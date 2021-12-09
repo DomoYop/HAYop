@@ -1,0 +1,144 @@
+######################################################################################################################
+######################################################################################################################
+#  SETTINGS
+######################################################################################################################
+######################################################################################################################
+
+title: 06_settings_view
+icon: mdi:cog
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:scheduler-card
+        time_step: 1
+        include:
+          - light
+          - fan
+          - switch
+          - cover
+        domains:
+          - light
+          - fan
+          - switch
+          - cover
+        entities:
+          - light
+          - switch
+          - fan
+          - cover
+      #            groups:
+      #              - name: "Lighting"
+      #                icon: ceiling-light
+      #                include:
+      #                  - light
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.alarmclock_wd_enabled
+            type: custom:multiple-entity-row
+            toggle: true
+            entities:
+              - entity: input_number.alarmclock_wd_hour
+              - entity: input_number.alarmclock_wd_minute
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: custom:fold-entity-row
+            head: group.all_automations
+          - type: custom:fold-entity-row
+            head: group.all_scripts
+          - type: custom:fold-entity-row
+            head: group.all_scenes
+      # - type: custom:bar-card
+      #   direction: up
+      #   entities:
+      #     - color: MediumTurquoise
+      #       entity: sensor.canon_ts8300_series_cyan
+      #     - color: MediumOrchid
+      #       entity: sensor.canon_ts8300_series_magenta
+      #     - color: Gold
+      #       entity: sensor.canon_ts8300_series_yellow
+      #     - color: Blue
+      #       entity: sensor.canon_ts8300_series_photo_blue
+      #     - color: Black
+      #       entity: sensor.canon_ts8300_series_black_bk
+      #     - color: Black
+      #       entity: sensor.canon_ts8300_series_black_pgbk
+      #   height: 200px
+      #   positions:
+      #     icon: inside
+      #     title: outside
+      #   max: 100
+      #   min: 0
+      #   padding: 2px
+      #   target: 20
+      #   unit_of_measurement: "%"
+      #   stack: horizontal
+      #   title: Canon TS8530
+      #   card_mod:
+      #     style: |
+      #       bar-card-title {
+      #         text-shadow: 1px 1px 5px black;
+      #       }
+      #       bar-card-value {
+      #         text-shadow: 1px 1px 5px black;
+      #       }
+
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - sensor.date_fr
+          - sensor.time
+          - sensor.bourg_la_reine_original_condition
+      - type: custom:battery-state-card
+        title: false
+        color_gradient:
+          - "#ff0000" # red
+          - "#ffff00" # yellow
+          - "#00ff00" # green
+        entities:
+          - entity: sensor.oeil_sauron_battery_level
+            name: "Oeil de Sauron"
+          - entity: sensor.porte_entree_battery_level
+            name: "Fibaro Porte d'entrée"
+          - entity: sensor.fumee1_filles_battery_level
+            name: "Fibaro detecteur fumée Chambre Filles"
+          - entity: sensor.fumee2_parents_battery_level
+            name: "Fibaro detecteur fumée Chambre Parents"
+          - entity: sensor.fumee3_cuisine_battery_level
+            name: "Fibaro detecteur fumée Cuisine"
+          - entity: sensor.inondation1_sdb_battery_level
+            name: "Fibaro Fuite d'Eau SdB"
+          - entity: sensor.inondation2_cuisine_battery_level
+            name: "Fibaro Fuite d'Eau Cuisine"
+          - entity: sensor.co2_sensor_niveau_batterie
+            name: "Capteur Co2"
+          - entity: sensor.battery
+            name: "Cube Aqara"
+          - entity: sensor.oneplus_a6013_battery_level
+            name: "OnePlus 6T"
+          - entity: sensor.rwl021_battery
+            name: "Télécommande Philips"
+          - entity: sensor.variateur_lampes_jaunes_battery
+            name: "Télécommande Lampes Jaunes"
+          - entity: sensor.telecommande_bateau_battery
+            name: "Télécommande Bateau"
+          - entity: sensor.telecommande_lampadaire_battery
+            name: "Télécommande Lampadaire Salon"
+
+  # - type: custom:upcoming-media-card
+  #   card_mod:
+  #     style: |
+  #       ha-card {
+  #         background: none;
+  #         box-shadow: none;
+  #       }
+  #   entity: sensor.plex_recently_added
+  #   image_style: fanart
+  #   max: 6
+  #   box_shadows: false

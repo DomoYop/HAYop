@@ -1,0 +1,22 @@
+title: 08_network_view
+#background: center / cover no-repeat url("/local/images/fond ecran/metal.png") fixed
+icon: mdi:lan
+#panel : true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+          - binary_sensor.routeuryop_device_domoyop
+          - binary_sensor.routeuryop_interface_eth0
+          - binary_sensor.routeuryop_interface_eth1
+          - device_tracker.routeuryop_lama_1
+          - device_tracker.routeuryop_miniyop
+          - device_tracker.routeuryop_padou
+          - device_tracker.routeuryop_padou_1
+          - binary_sensor.routeuryop_system_status
+          - sensor.routeuryop_system_uptime
+          - sensor.routeuryop_unknown_devices
+          - device_tracker.routeuryop_iphoneyop
+          - device_tracker.routeuryop_iphonedeaurelie
+        title: RouteurYop (ERLite-3)

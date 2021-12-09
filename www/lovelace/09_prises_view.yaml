@@ -1,0 +1,57 @@
+title: 08_network_view
+#background: center / cover no-repeat url("/local/images/fond ecran/metal.png") fixed
+icon: mdi:power-socket-us
+#panel : true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+          - switch.prise08_led_blue
+          - switch.prise08_led_red
+          - switch.prise08_relay
+        title: prise08
+
+      - type: entities
+        entities:
+          - sensor.prise08_amperage
+          - sensor.prise08_total_daily_energy
+          - sensor.prise08_uptime_sensor
+          - sensor.prise08_voltage
+          - sensor.prise08_wattage
+          - binary_sensor.prise08_button
+        title: prise08
+
+      - type: entities
+        entities:
+          - switch.prise09_led_blue
+          - switch.prise09_led_red
+          - switch.prise09_relay
+        title: prise09
+
+      - type: entities
+        entities:
+          - sensor.prise09_amperage
+          - sensor.prise09_total_daily_energy
+          - sensor.prise09_uptime_sensor
+          - sensor.prise09_voltage
+          - sensor.prise09_wattage
+          - binary_sensor.prise09_button
+        title: prise09
+
+      - type: entities
+        entities:
+          - switch.prise10_led_blue
+          - switch.prise10_led_red
+          - switch.prise10_relay
+        title: prise10
+
+      - type: entities
+        entities:
+          - sensor.prise10_amperage
+          - sensor.prise10_total_daily_energy
+          - sensor.prise10_uptime_sensor
+          - sensor.prise10_voltage
+          - sensor.prise10_wattage
+          - binary_sensor.prise10_button
+        title: prise10

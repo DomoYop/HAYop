@@ -1,0 +1,8 @@
+- alias: Red light if bad air quality
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.co2
+    above: 1000
+  action:
+    service: light.turn_on
+    entity_id: light.station_led

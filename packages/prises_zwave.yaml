@@ -1,0 +1,86 @@
+############################################################
+##                                                        ##
+##                   PRISES ZWAVE                         ##
+##                                                        ##
+############################################################
+
+#Ajout du composant et des prises connectées
+# tplink:
+#   discovery: false
+#   switch:
+#     - host: 192.168.2.36
+#     - host: 192.168.2.37
+#     - host: 192.168.2.38
+#     - host: 192.168.2.39
+
+#Templates pour integrer les valeurs des prises
+sensor:
+  - platform: template
+    sensors:
+      prise_01_current_power_w:
+        value_template: "{{ states('sensor.prise01_electric_consumption_w') | float }}"
+        unit_of_measurement: "W"
+      prise_01_total_energy_kwh:
+        value_template: "{{ states('sensor.prise01_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_01_today_energy_kwh:
+        value_template: "{{ states('sensor.prise01_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_01_volts:
+        value_template: "{{ 230.0 | float }}"
+        unit_of_measurement: "V"
+
+      prise_02_current_power_w:
+        value_template: "{{ states('sensor.prise02_electric_consumption_w') | float }}"
+        unit_of_measurement: "W"
+      prise_02_total_energy_kwh:
+        value_template: "{{ states('sensor.prise02_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_02_today_energy_kwh:
+        value_template: "{{ states('sensor.prise02_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_02_volts:
+        value_template: "{{ states('sensor.prise02_electric_consumption_v') | float }}"
+        unit_of_measurement: "V"
+
+      prise_03_current_power_w:
+        value_template: "{{ states('sensor.prise03_electric_consumption_w') | float }}"
+        unit_of_measurement: "W"
+      prise_03_total_energy_kwh:
+        value_template: "{{ states('sensor.prise03_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_03_today_energy_kwh:
+        value_template: "{{ states('sensor.prise03_electric_consumption_kwh') | float }}"
+        unit_of_measurement: "kWh"
+      prise_03_volts:
+        value_template: "{{ states('sensor.prise03_electric_consumption_v') | float }}"
+        unit_of_measurement: "V"
+
+      tplink_4_current_power_w:
+        value_template: '{{ states.switch.tp_link_plug_4.attributes["current_power_w"] | float }}'
+        unit_of_measurement: "W"
+      tplink_4_total_energy_kwh:
+        value_template: '{{ states.switch.tp_link_plug_4.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: "kWh"
+      tplink_4_today_energy_kwh:
+        value_template: '{{ states.switch.tp_link_plug_4.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: "kWh"
+      tplink_4_volts:
+        value_template: "{{ state_attr('switch.tp_link_plug_4','voltage') | float }}"
+        unit_of_measurement: "V"
+
+  #Templates pour cumuler les valeurs des prises
+  - platform: template
+    sensors:
+      current_power_usage:
+        value_template: '{%- if not is_state("sensor.prise_01_current_power_w","unknown") -%}  {{ ((states.sensor.prise_01_current_power_w.state | float) + (states.sensor.prise_02_current_power_w.state | float) + (states.sensor.prise_03_current_power_w.state | float)) | round(2) }} {%- endif -%}'
+        friendly_name: "Conso/Actuelle"
+        unit_of_measurement: "W"
+      total_power_usage:
+        value_template: '{%- if not is_state("sensor.prise_01_total_energy_kwh","unknown") -%}  {{ ((states.sensor.prise_01_total_energy_kwh.state | float) + (states.sensor.prise_02_total_energy_kwh.state | float) + (states.sensor.prise_03_total_energy_kwh.state | float)) | round(2) }} {%- endif -%}'
+        friendly_name: "Conso/Totale"
+        unit_of_measurement: "kWh"
+      today_power_usage:
+        value_template: '{%- if not is_state("sensor.prise_01_today_energy_kwh","unknown") -%}  {{ ((states.sensor.prise_01_today_energy_kwh.state | float) + (states.sensor.prise_02_today_energy_kwh.state | float) + (states.sensor.prise_03_today_energy_kwh.state | float)) | round(2) }} {%- endif -%}'
+        friendly_name: "Conso/Jour"
+        unit_of_measurement: "kWh"

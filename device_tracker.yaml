@@ -1,0 +1,41 @@
+############################################################
+##                         NMAP                           ##
+############################################################
+# Deprecated => into UI
+# - platform: nmap_tracker
+#   hosts:
+#     - 192.168.194.1 #routeur yop
+#     - 192.168.194.37 #miniyop
+#     - 192.168.194.222 #domoyop
+#     - 192.168.194.234 #lama
+#     - 192.168.194.180 #ihpone auré
+#     - 192.168.194.182 #padou1
+#     - 192.168.194.183 #padou2
+#     - 192.168.194.194 #iphone yop
+#   home_interval: 2
+#   new_device_defaults:
+#     track_new_devices: true
+#   interval_seconds:
+#     30
+
+############################################################
+##                  IPHONE TRACKER                        ##
+############################################################
+- platform: iphonedetect
+  consider_home: 60
+  scan_interval: 12
+  new_device_defaults:
+    track_new_devices: false
+  hosts:
+    hostname1: 192.168.194.194
+    hostname2: 192.168.194.180
+
+    ############################################################
+    ##                   BLUETOOTH TRACKER                    ##
+    ############################################################
+# desactivé car pas de dongle BT
+# - platform: bluetooth_tracker
+#   new_device_defaults:
+#     track_new_devices: false
+#   consider_home: 180
+#   interval_seconds: 60

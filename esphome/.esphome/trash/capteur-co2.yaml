@@ -1,0 +1,24 @@
+esphome:
+  name: capteur-co2
+  platform: ESP8266
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "34ff2f961f2a61791af22e919dd841a4"
+
+wifi:
+  ssid: "Livebox-LAMA"
+  password: "Wifi4LionelAurelieMelanieAlice"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Capteur-Co2 Fallback Hotspot"
+    password: "FIJmkWPpH2nR"
+
+captive_portal:

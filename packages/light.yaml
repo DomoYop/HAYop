@@ -1,0 +1,114 @@
+light:
+  ############################################################
+  ##                    LIGHT GROUPS                        ##
+  ############################################################
+  - platform: group
+    name: Lampes Jaunes
+    entities:
+      - light.lampe_jaune_droite
+      - light.lampe_jaune_gauche
+  - platform: group
+    name: Chambre Filles
+    entities:
+      - light.lampadaire_chambre_filles
+  - platform: group
+    name: Salon
+    entities:
+      - light.lampadaire_salon
+      - light.lampe_bateau
+      - light.lampe_brodee
+      - light.lampe_jaune_droite
+      - light.lampe_jaune_gauche
+  - platform: group
+    name: Chambre Parents
+    entities:
+      - light.lampe_chevet_aurelie
+      - light.lampe_chevet_lione
+
+group:
+  ############################################################
+  ##                    ALL LIGHTS GROUPS                   ##
+  ############################################################
+  all_lights_salon:
+    name: Salon
+    entities:
+      - light.lampadaire_salon
+      - light.lampe_bateau
+      - light.lampe_brodee
+      - light.lampe_jaune_droite
+      - light.lampe_jaune_gauche
+
+  all_lights_chambre_parents:
+    name: Chambre Parents
+    entities:
+      - light.lampe_chevet_aurelie
+      - light.lampe_chevet_lione
+
+  all_lights_chambre_filles:
+    name: Chambre Filles
+    entities:
+      - light.lampadaire_chambre_filles
+
+    ############################################################
+    ##                     LIGHTS COUNT                       ##
+    ############################################################
+sensor:
+  - platform: template
+    sensors:
+      all_lights_salon:
+        value_template: >
+          {{ states | selectattr('entity_id','in',state_attr('group.all_lights_salon','entity_id')) | selectattr('state','eq','on') | list | count }}
+
+      all_lights_chambre_parents:
+        value_template: >
+          {{ states | selectattr('entity_id','in',state_attr('group.all_lights_chambre_parents','entity_id')) | selectattr('state','eq','on') | list | count }}
+
+      all_lights_chambre_filles:
+        value_template: >
+          {{ states | selectattr('entity_id','in',state_attr('group.all_lights_chambre_filles','entity_id')) | selectattr('state','eq','on') | list | count }}
+
+automation:
+  ############################################################
+  ##                  LIGHTS COUNT UPDATE                   ##
+  ############################################################
+  - alias: "Mise a jour all_lights_salon"
+    initial_state: "on"
+    trigger:
+      - platform: state
+        entity_id:
+          - light.lampadaire_chambre_filles
+          - light.lampadaire_salon
+          - light.lampe_bateau
+          - light.lampe_brodee
+          - light.lampe_jaune_droite
+          - light.lampe_jaune_gauche
+
+    action:
+      - service: homeassistant.update_entity
+        data_template:
+          entity_id: sensor.all_lights_salon
+
+  - alias: "Mise a jour all_lights_chambre_parents"
+    initial_state: "on"
+    trigger:
+      - platform: state
+        entity_id:
+          - light.lampe_chevet_aurelie
+          - light.lampe_chevet_lionel
+
+    action:
+      - service: homeassistant.update_entity
+        data_template:
+          entity_id: sensor.all_lights_chambre_parents
+
+  - alias: "Mise a jour all_lights_chambre_filles"
+    initial_state: "on"
+    trigger:
+      - platform: state
+        entity_id:
+          - light.lampadaire_chambre_filles
+
+    action:
+      - service: homeassistant.update_entity
+        data_template:
+          entity_id: sensor.all_lights_chambre_filles
