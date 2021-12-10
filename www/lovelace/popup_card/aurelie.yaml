@@ -62,7 +62,7 @@ browser_mod:
                   "state-badge":
                     $: |
                       ha-icon {
-                        color: {{ '#3182b7' if is_state('device_tracker.gabriela_s_iphone', 'home') else '#FFFFFF20' }};
+                        color: {{ '#3182b7' if is_state('device_tracker.routeuryop_iphonedeaurelie', 'home') else '#FFFFFF20' }};
                       }
               "ha-card>div>div:nth-child(3)":
                 $:

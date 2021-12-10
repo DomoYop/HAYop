@@ -39,7 +39,7 @@
                   entities:
                     - entity: sensor.harmony_hub_template
                       name: HUB 
-                    - entity: sensor.synology_template
+                    - entity: sensor.lama_template
                       name: NAS  
                     - entity: sensor.serveur_vm_template
                       name: VM                                                
@@ -66,7 +66,7 @@
                         "state-badge":
                           $: |
                             ha-icon {
-                              color: {{ '#3182b7' if is_state('sensor.synology_template', 'on') else '#FFFFFF20' }};
+                              color: {{ '#3182b7' if is_state('sensor.lama_template', 'on') else '#FFFFFF20' }};
                             }
                     "ha-card>div>div:nth-child(3)":
                       $:
@@ -79,7 +79,7 @@
                     - entity: sensor.harmony_hub_template
                       name: Harmony HUB
                       icon: mdi:remote
-                    - entity: sensor.synology_template
+                    - entity: sensor.lama_template
                       name: Synology NAS
                       icon: mdi:server
                     - entity: sensor.serveur_vm_template

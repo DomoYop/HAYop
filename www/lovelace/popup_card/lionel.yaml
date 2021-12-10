@@ -53,7 +53,7 @@ browser_mod:
                   "state-badge":
                     $: |
                       ha-icon {
-                        color: {{ '#3182b7' if is_state('device_tracker.ea_2b_d7_01_c4_84', 'home') else '#FFFFFF20' }};
+                        color: {{ '#3182b7' if is_state('device_tracker.routeuryop_iphoneyop', 'home') else '#FFFFFF20' }};
                       }
               "ha-card>div>div:nth-child(2)":
                 $:
@@ -70,7 +70,7 @@ browser_mod:
                         color: {{ '#3182b7' if is_state('device_tracker.roman_gps', 'home') else '#FFFFFF20' }};
                       }
             entities:
-              - entity: device_tracker.ea_2b_d7_01_c4_84
+              - entity: device_tracker.routeuryop_iphoneyop
                 name: Router
                 icon: mdi:wifi
 

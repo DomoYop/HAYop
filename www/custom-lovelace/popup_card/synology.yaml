@@ -38,7 +38,7 @@
                           padding-bottom: 10px;
                         }
                     entities: 
-                      - sensor.synology_temperature_sda
+                      - sensor.lama_temperature_sda
                     name: CPU TEMP
                     align_state: center
                     align_icon: right
@@ -69,10 +69,10 @@
                         }              
                     entities:
                       - type: divider    
-                      - sensor.synology_volume_used_volume_1
-                      - sensor.synology_network_up
-                      - sensor.synology_network_down 
-                      - sensor.synology_status_volume_1               
+                      - sensor.lama_volume_used_volume_1
+                      - sensor.lama_network_up
+                      - sensor.lama_network_down 
+                      - sensor.lama_status_volume_1               
                       - type: divider          
                   - type: horizontal-stack
                     cards: 
@@ -95,7 +95,7 @@
                                   padding-bottom: 10px;
                                 }
                             entities: 
-                              - sensor.synology_cpu_load_total
+                              - sensor.lama_cpu_load_total
                             name: CPU LOAD
                             align_state: center
                             align_icon: right
@@ -130,7 +130,7 @@
                               padding-bottom: 10px;
                             }
                         entities: 
-                          - sensor.synology_memory_usage_real
+                          - sensor.lama_memory_usage_real
                         name: MEM USE
                         align_state: center
                         align_icon: right

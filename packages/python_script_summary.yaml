@@ -39,7 +39,7 @@ group:
     name: Device Tracker
     entities:
       - sensor.harmony_hub_template
-      - sensor.synology_template
+      - sensor.lama_template
       - sensor.serveur_vm_template
 
   switch_tracker:

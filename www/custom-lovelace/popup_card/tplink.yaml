@@ -30,7 +30,7 @@ browser_mod:
                 show:
                   extrema: true
                 entities:
-                  - sensor.synology_temperature_sda
+                  - sensor.lama_temperature_sda
               - type: custom:mini-graph-card
                 name: CPU LOAD
                 graph: line
@@ -56,4 +56,4 @@ browser_mod:
                 show:
                   extrema: true
                 entities:
-                  - sensor.synology_volume_used_volume_1
+                  - sensor.lama_volume_used_volume_1

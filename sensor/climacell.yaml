@@ -1,9 +1,8 @@
-
-   ############################################################
-   ##                                                        ##
-   ##                      CLIMACELL                         ##
-   ##                                                        ##
-   ############################################################
+############################################################
+##                                                        ##
+##                      CLIMACELL                         ##
+##                                                        ##
+############################################################
 
 - platform: climacell
   api_key: !secret climacell_api_key
@@ -12,7 +11,7 @@
   longitude: !secret ha_longitude
   units: metric
   timelines:
-    - name: "" #Realtime
+    - name: "Bourg la Reine" #Realtime
       timestep: "1m"
       forecast_observations: 1
       fields:
@@ -63,7 +62,7 @@
         - precipitationIntensityMax
         - precipitation_probability
         - weather_condition
-        - moonPhase        
+        - moonPhase
       scan_interval:
         # At least one of these must be specified:
         days: 0
