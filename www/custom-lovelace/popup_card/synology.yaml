@@ -69,10 +69,14 @@
                         }              
                     entities:
                       - type: divider    
-                      - sensor.lama_volume_used_volume_1
-                      - sensor.lama_network_up
-                      - sensor.lama_network_down 
-                      - sensor.lama_status_volume_1               
+                      # - sensor.lama_volume_used_volume_1
+                      - sensor.lama_volume_used
+                      # - sensor.lama_network_up
+                      - sensor.lama_upload_throughput
+                      # - sensor.lama_network_down 
+                      - sensor.lama_download_throughput                      
+                      # - sensor.lama_status_volume_1               
+                      - sensor.lama_status
                       - type: divider          
                   - type: horizontal-stack
                     cards: 
