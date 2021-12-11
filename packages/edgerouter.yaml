@@ -1,0 +1,28 @@
+#################################################
+###   Calcul debit net - methode alternative  ###
+#################################################
+
+# autre methode
+#  https://community.home-assistant.io/t/snmp-bandwidth-monitor/7122
+sensor:
+  - platform: snmp
+    name: 'ER lite WAN In'
+    host: 192.168.194.1
+    baseoid: 1.3.6.1.2.1.31.1.1.1.6.2
+    community: 'public'
+    version: '2c'
+    scan_interval: 10
+
+  - platform: derivative
+    source: sensor.er_lite_wan_in
+    unit_time: s
+    unit: B
+    name: erl_wan_in_derivative
+
+  - platform: template
+    sensors:
+      erl_wan_in_mbps:
+        value_template:  "{{ ((states('sensor.erl_wan_in_derivative')|float*8)/1000000)|round(2) }}"
+        unit_of_measurement: 'Mbps'
+        entity_id: sensor.erl_wan_in_derivative
+        friendly_name: Internet in Dev
