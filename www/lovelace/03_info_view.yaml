@@ -214,7 +214,7 @@ cards:
                 #states > * {
                   margin-top: 1;
                 }
-            entity: sensor.down_max_freebox
+            entity: sensor.down_max_routeuryop
             color: 'green'
             height: 30px
             limit_value: 2300
@@ -251,7 +251,7 @@ cards:
                 #states > * {
                   margin-top: 1;
                 }
-            entity: sensor.up_max_freebox
+            entity: sensor.up_max_routeuryop
             color: '#3498db'
             height: 30px
             icon: mdi:upload
@@ -284,12 +284,12 @@ cards:
           - type: entities
             class: information_network
             entities:
-              - entity: sensor.freebox_download_speed
+              - entity: sensor.routeuryop_download_speed
                 style: ':host {--paper-item-icon-color: green;}'
           - type: entities
             class: information_network
             entities:
-              - entity: sensor.freebox_upload_speed
+              - entity: sensor.routeuryop_upload_speed
                 name: ''
                 style: ':host {--paper-item-icon-color: #3498db;}'
       - type: custom:mini-graph-card
@@ -300,9 +300,9 @@ cards:
             }          
         entities:
           - color: '#3498db'
-            entity: sensor.freebox_upload_speed
+            entity: sensor.routeuryop_upload_speed
           - color: green
-            entity: sensor.freebox_download_speed
+            entity: sensor.routeuryop_download_speed
         align_state: left
         group: false
         points_per_hour: 15
@@ -587,11 +587,15 @@ cards:
         entities:
 
 #              - sensor.cpu_speed
-          - type: divider    
-          - sensor.lama_volume_used_volume_1
-          - sensor.lama_network_up
-          - sensor.lama_network_down 
-          - sensor.lama_status_volume_1               
+          - type: divider
+          # - sensor.lama_volume_used_volume_1
+          - sensor.lama_volume_used
+          # - sensor.lama_network_up
+          - sensor.lama_upload_throughput
+          # - sensor.lama_network_down 
+          - sensor.lama_download_throughput                      
+          # - sensor.lama_status_volume_1               
+          - sensor.lama_status    
           - type: divider          
       - type: horizontal-stack
         cards: 
@@ -617,7 +621,8 @@ cards:
 
 
                 entities: 
-                  - sensor.lama_cpu_load_total
+                  # - sensor.lama_cpu_load_total
+                  - sensor.lama_cpu_utilization_total
                 name: CPU LOAD
                 align_state: center
                 align_icon: right

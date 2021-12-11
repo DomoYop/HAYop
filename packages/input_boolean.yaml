@@ -158,54 +158,6 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.xbox_power_switch          
-
-    ############################################################
-    ##                          ZAPPITI                       ##
-    ############################################################       
-  - alias: '[Boolean] ZAPPITI on'
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.zappiti_power_switch
-        to: 'on'
-    action:
-      - service: script.turn_on
-        entity_id: script.zappiti_power_on     
-  - alias: '[Boolean] ZAPPITI off'
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.zappiti_power_switch
-        to: 'off'
-    action:
-      - service: script.turn_on
-        entity_id: script.zappiti_power_off 
-
-    ###  UPDATE  ###    
-  - alias: '[Boolean] mise a jour ZAPPITI on'
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.zappiti_template
-        from: 'off'
-        to: 'on'
-    action: 
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.zappiti_power_switch
-          
-  - alias: '[Boolean] mise a jour ZAPPITI off'
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.zappiti_template
-        from: 'on'
-        to: 'off'
-    action: 
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.zappiti_power_switch
-
     ############################################################
     ##                      PROJECTEUR                        ##
     ############################################################  

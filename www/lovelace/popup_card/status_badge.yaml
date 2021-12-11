@@ -37,7 +37,7 @@
                       }                
                   card_type: history-graph
                   entities:
-                    - entity: sensor.harmony_hub_template
+                    - entity: sensor.rm4mini_template
                       name: HUB 
                     - entity: sensor.lama_template
                       name: NAS  
@@ -73,7 +73,7 @@
                         "state-badge":
                           $: |
                             ha-icon {
-                              color: {{ '#3182b7' if is_state('device_tracker.ea_2b_d7_01_c4_84', 'home') else '#FFFFFF20' }};
+                              color: {{ '#3182b7' if is_state('sensor.serveur_vm_template', 'on') else '#FFFFFF20' }};
                             }
                   entities:
                     - entity: sensor.harmony_hub_template
