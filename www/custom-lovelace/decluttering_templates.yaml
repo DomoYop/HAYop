@@ -19,21 +19,21 @@ camera:
 ####################################################################################################################################################################################################################################################################################################################################################
 ####    SUMMARY
 ####################################################################################################################################################################################################################################################################################################################################################
-summary:
-  card:
-    type: markdown
-    card_mod:
-      style: |
-        ha-card {
-          background: none;
-          box-shadow: none;      
-          font-family: Quicksand;
-          margin-bottom: -0.9em;            
-        }
-    content: >
-      <center> {{ states('sensor.date_fr') }}, nous fêtons les {{ states('sensor.fete_du_jour') }} <center>             
-      <center> &nbsp;
-      <center> {{states.sensor.summary.attributes.text}}
+# summary:
+#   card:
+#     type: markdown
+#     card_mod:
+#       style: |
+#         ha-card {
+#           background: none;
+#           box-shadow: none;      
+#           font-family: Quicksand;
+#           margin-bottom: -0.9em;            
+#         }
+#     content: >
+#       <center> {{ states('sensor.date_fr') }}, nous fêtons les {{ states('sensor.fete_du_jour') }} <center>             
+#       <center> &nbsp;
+#       <center> {{states.sensor.summary.attributes.text}}
 
 ####################################################################################################################################################################################################################################################################################################################################################
 ####    WEATHER
@@ -2117,6 +2117,97 @@ button_synology:
         styles:
           card:
             - "[[opacity1]]": "[[opacity2]]"
+
+
+####################################################################################################################################################################################################################################################################################################################################################
+####    SYNOLOGY V2
+####################################################################################################################################################################################################################################################################################################################################################
+button_synology_v2:
+  card:
+    type: custom:button-card
+    template: button_info
+    entity: "[[entity]]"
+    icon: mdi:nas
+    name: "[[name]]"
+    "[[show_last_changed1]]": "[[show_last_changed2]]"
+    "[[show_entity_picture1]]": "[[show_entity_picture2]]"
+    tap_action: !include popup_card/synology.yaml
+    card_mod:
+      style: |
+        ha-card {
+          --paper-card-background-color: 'rgba(11, 11, 11, 0.00)';
+          box-shadow: 2px 2px rgba(0,0,0,0.0);
+          border-radius: 15px;
+        }
+    styles:
+      card:
+        - color: "var(--text-medium-color)"
+        - text-shadow: 0px 0px 0px white
+        - background-color: var(--primary-background-color)
+        - padding-left: 10px
+        - border-radius: 20px
+        - padding: 10%
+        - font-size: 15px
+        - text-transform: capitalize
+      grid:
+        - grid-template-areas: '"i temp" "n n" "cpu cpu" "ram ram" "sd sd"'
+        - grid-template-columns: 1fr 1fr
+        - grid-template-rows: 1fr min-content min-content min-content min-content
+      name:
+        - font-weight: bold
+        - font-size: 13px
+        - align-self: middle
+        - justify-self: start
+        - padding-bottom: 4px
+        - color: "var(--text-color)"
+      icon:
+        - color: >
+            [[[
+              if (entity.state < 200) return 'lime';
+              if (entity.state >= 200 && entity.state < 400) return 'orange';
+              else return 'red';
+            ]]]
+        - width: 70%
+      custom_fields:
+        cpu:
+          - --text-color-sensor: "[[cpustyle]]"
+        ram:
+          - --text-color-sensor: "[[ramstyle]]"
+        sd:
+          - --text-color-sensor: "[[sdstyle]]"
+    custom_fields:
+      temp: >
+          "[[[
+          return `<ha-icon icon='mdi:thermometer' style='width: 20px; height: 20px; color: yellow;'></ha-icon>
+          <span style='align: left;'>${Math.round(states[[[tempfield]]].state)}°C</span>`
+          ]]]"
+      cpu: >
+        [[cpufield]]
+      ram: >
+        [[ramfield]]
+      sd: >
+        [[sdfield]]
+    state:
+      - value: "on"
+        "[[spin1]]": "[[spin2]]"
+        "[[icon1]]": "[[icon2]]"
+        styles:
+          icon:
+            - "[[animation1]]": "[[animation2]]"
+      - value: "off"
+        styles:
+          card:
+            - "[[opacity1]]": "[[opacity2]]"
+
+      # - colorstyle: "[[[
+      #     if (entity.state == 'OL') return 'lime';
+      #     if (entity.state == 'OB') return 'yellow';
+      #     if (entity.state == 'LB') return 'magenta';
+      #     if (entity.state == 'OB LB') return 'red';
+      #     if (entity.state == 'OL LB') return 'cyan';
+      #     else return 'deepskyblue';
+      #     ]]]"
+
 
 ####################################################################################################################################################################################################################################################################################################################################################
 ####    HASSOS

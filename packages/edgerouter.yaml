@@ -2,6 +2,35 @@
 ###   Calcul debit net - methode alternative  ###
 #################################################
 
+# For monitoring traffic on interfaces I'm using next oids :
+# .1.3.6.1.2.1.2.2.1.2.2 value : eth0
+# .1.3.6.1.2.1.2.2.1.2.3 value : eth1
+# .1.3.6.1.2.1.2.2.1.2.5 value : eth2
+# .1.3.6.1.2.1.2.2.1.2.6 value : eth3
+# .1.3.6.1.2.1.2.2.1.2.7 value : eth4
+#
+# for bytes in:
+# .1.3.6.1.2.1.31.1.1.1.6.2 value : eth0
+# .1.3.6.1.2.1.31.1.1.1.6.3 value : eth1
+# .1.3.6.1.2.1.31.1.1.1.6.5 value : eth2
+# .1.3.6.1.2.1.31.1.1.1.6.6 value : eth3
+# .1.3.6.1.2.1.31.1.1.1.6.7 value : eth4
+#
+# for bytes out:
+# .1.3.6.1.2.1.31.1.1.1.10.2 value : eth0
+# .1.3.6.1.2.1.31.1.1.1.10.3 value : eth1
+# .1.3.6.1.2.1.31.1.1.1.10.5 value : eth2
+# .1.3.6.1.2.1.31.1.1.1.10.6 value : eth3
+# .1.3.6.1.2.1.31.1.1.1.10.7 value : eth4
+#
+# For monitoring cpu load I'm using:
+#
+# .1.3.6.1.2.1.25.3.3.1.2.196608 value : cpu0
+# .1.3.6.1.2.1.25.3.3.1.2.196609 value : cpu1
+
+
+
+
 # autre methode
 #  https://community.home-assistant.io/t/snmp-bandwidth-monitor/7122
 sensor:
@@ -26,3 +55,128 @@ sensor:
         unit_of_measurement: 'Mbps'
         entity_id: sensor.erl_wan_in_derivative
         friendly_name: Internet in Dev
+
+
+
+#  methode issue de
+#  https://community.home-assistant.io/t/snmp-bandwidth-monitor-using-statistics/96684/4
+# eth0 LAN
+  - platform: snmp
+    name: 'ERL LAN In'
+    host: 192.168.194.1
+    baseoid: 1.3.6.1.2.1.31.1.1.1.6.2
+    community: 'public'
+    version: '2c'
+    scan_interval: 10
+  - platform: snmp
+    name: 'ERL LAN Out'
+    host: 192.168.194.1
+    baseoid: 1.3.6.1.2.1.31.1.1.1.10.2
+    community: 'public'
+    version: '2c'
+    scan_interval: 10
+  - platform: statistics
+    name: 'ERL LAN In Stats'
+    entity_id: sensor.erl_lan_in
+    sampling_size: 4
+    max_age:
+      hours: 24
+  - platform: statistics
+    name: 'ERL LAN Out Stats'
+    entity_id: sensor.erl_lan_out
+    sampling_size: 4
+    max_age:
+      hours: 24
+  - platform: template
+    sensors:
+      lan_internet_in_mbps:
+        value_template: "{{ (state_attr('sensor.erl_lan_in_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_lan_in_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+        unit_of_measurement: 'MBps'
+        entity_id: sensor.erl_lan_in_stats_mean
+      lan_internet_out_mbps:
+        value_template: "{{ (state_attr('sensor.erl_lan_out_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_lan_out_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+        unit_of_measurement: 'MBps'
+        entity_id: sensor.erl_lan_out_stats_mean
+#eth1 WAN
+  # - platform: snmp
+  #   name: 'ERL WAN In'
+  #   host: 192.168.194.1
+  #   baseoid: 1.3.6.1.2.1.31.1.1.1.6.3
+  #   community: 'public'
+  #   version: '2c'
+  #   scan_interval: 10
+  # - platform: snmp
+  #   name: 'ERL WAN Out'
+  #   host: 192.168.194.1
+  #   baseoid: 1.3.6.1.2.1.31.1.1.1.10.3
+  #   community: 'public'
+  #   version: '2c'
+  #   scan_interval: 10
+  # - platform: statistics
+  #   name: 'ERL WAN in Stats'
+  #   entity_id: sensor.erl_wan_in
+  #   sampling_size: 4
+  #   max_age:
+  #     hours: 24
+  # - platform: statistics
+  #   name: 'ERL WAN out Stats'
+  #   entity_id: sensor.erl_wan_out
+  #   sampling_size: 4
+  #   max_age:
+  #     hours: 24
+  # - platform: template
+  #   sensors:
+  #     wan_internet_in_mbps:
+  #       value_template: "{{ (state_attr('sensor.erl_wan_in_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_wan_in_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+  #       unit_of_measurement: 'MBps'
+  #       entity_id: sensor.erl_wan_in_stats_mean
+  #     wan_internet_out_mbps:
+  #       value_template: "{{ (state_attr('sensor.erl_wan_out_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_wan_out_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+  #       unit_of_measurement: 'MBps'
+  #       entity_id: sensor.erl_wan_out_stats_mean
+
+# test avec données edgerouter
+  - platform: template
+    sensors:
+      erl_wan_in:
+        friendly_name: 'ERL WAN In'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Received)')|float*8) )/1000000)|round(2) }}"
+        unit_of_measurement: 'Bytes'
+      erl_wan_out:
+        friendly_name: 'ERL WAN Out'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1','Bytes (Sent)')|float*8) )/1000000)|round(2)}}"
+        unit_of_measurement: 'Bytes'
+  - platform: statistics
+    name: 'ERL WAN in Stats'
+    entity_id: sensor.erl_wan_in
+    sampling_size: 4
+    max_age:
+      hours: 24
+  - platform: statistics
+    name: 'ERL WAN out Stats'
+    entity_id: sensor.erl_wan_out
+    sampling_size: 4
+    max_age:
+      hours: 24
+  - platform: template
+    sensors:
+      wan_internet_in_mbps:
+        value_template: "{{ (state_attr('sensor.erl_wan_in_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_wan_in_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+        unit_of_measurement: 'MBps'
+        entity_id: sensor.erl_wan_in_stats_mean
+      wan_internet_out_mbps:
+        value_template: "{{ (state_attr('sensor.erl_wan_out_stats_mean','change_rate')|float*8*(state_attr('sensor.erl_wan_out_stats_mean', 'sampling_size')-1)/1000000)|round(2) }}"
+        unit_of_measurement: 'MBps'
+        entity_id: sensor.erl_wan_out_stats_mean
+
+
+  - platform: template
+    sensors:
+      routeuryop_download_speed:
+        friendly_name: 'ERL down'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Received)')|float*8) )/1000000)|round(2) }}"
+        unit_of_measurement: 'Bytes'
+      routeuryop_upload_speed:
+        friendly_name: 'ERL up'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1','Bytes/ps (Sent)')|float*8) )/1000000)|round(2)}}"
+        unit_of_measurement: 'Bytes'

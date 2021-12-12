@@ -75,15 +75,15 @@ sensor.transmission_paused_torrents:
   icon: mdi:pause
 
   ###  SYNOLOGY  ###
-sensor.cpu_load_total:
+sensor.lama_cpu_utilization_total:
   friendly_name: CPU
-sensor.memory_usage_real:
+sensor.lama_memory_usage_real:
   friendly_name: Memoire
-sensor.network_down:
+sensor.lama_download_throughput:
   friendly_name: Download
-sensor.network_up:
+sensor.lama_upload_throughput:
   friendly_name: Upload
-sensor.volume_used_volume_1:
+sensor.lama_volume1_used_volume:
   friendly_name: Disque
   icon: mdi:harddisk
 

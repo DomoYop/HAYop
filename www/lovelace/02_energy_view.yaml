@@ -29,7 +29,6 @@ cards:
 
         cards:
           - type: custom:restriction-card
-
             card:
               template: button_tplink
               type: "custom:decluttering-card"
@@ -39,7 +38,6 @@ cards:
                 - entity: "switch.prise01"
                 - icon: mdi:power
                 - name: Prise 1
-
                 - tempfield: "[[[
                     return `<ha-icon icon='mdi:lightning-bolt' style='width: 20px; height: 20px; color: var(--tplink-1-color);'></ha-icon>
                     <span style='align: left;'>${Math.round(states['sensor.prise_01_volts'].state)} V</span>`

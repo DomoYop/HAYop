@@ -86,7 +86,7 @@ cards:
             pressure: sensor.bourg_la_reine_pressure
             temperature: sensor.bourg_la_reine_temperature
             visibility: sensor.bourg_la_reine_cloud_cover
-            wind_bearing: sensor.bourg_la_reine_wind_gust
+            wind_bearing: sensor.bourg_la_reine_wind_bearing
             wind_speed: sensor.bourg_la_reine_wind_speed
             precipitation: sensor.bourg_la_reine_daily_precipitation
             forecast: true

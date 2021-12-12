@@ -10,8 +10,6 @@ title: 03_info_view
 icon: mdi:information
 cards:
 
-
-
   - type: custom:stack-in-card
     card_mod: 
       style: |
@@ -34,7 +32,7 @@ cards:
               margin-bottom: 0.5em;
               box-shadow: none;
             }          
-        content: <center> RASPBERRY PI 4 
+        content: <center> VM DomoYop 
 
       - type: horizontal-stack
         cards:                   
@@ -164,6 +162,9 @@ cards:
               extrema: true
               icon: true
               name: true
+
+
+####### Colonne centrale
 
   - type: custom:stack-in-card 
     card_mod: 
@@ -552,7 +553,7 @@ cards:
               padding-bottom: 10px;
             }
         entities: 
-          - sensor.lama_temperature_sda
+          - sensor.lama_temperature
         name: CPU TEMP
         align_state: center
         align_icon: right
@@ -588,14 +589,10 @@ cards:
 
 #              - sensor.cpu_speed
           - type: divider
-          # - sensor.lama_volume_used_volume_1
-          - sensor.lama_volume_used
-          # - sensor.lama_network_up
           - sensor.lama_upload_throughput
-          # - sensor.lama_network_down 
           - sensor.lama_download_throughput                      
-          # - sensor.lama_status_volume_1               
-          - sensor.lama_status    
+          - sensor.lama_volume1_status
+          - sensor.lama_volume1_volume_used
           - type: divider          
       - type: horizontal-stack
         cards: 
@@ -621,7 +618,6 @@ cards:
 
 
                 entities: 
-                  # - sensor.lama_cpu_load_total
                   - sensor.lama_cpu_utilization_total
                 name: CPU LOAD
                 align_state: center

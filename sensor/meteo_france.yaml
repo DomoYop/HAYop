@@ -1,30 +1,49 @@
 ############################################################
 ##                                                        ##
-##                     LIGHTS COUNT                       ##
+##                     METEO FRANCE                       ##
 ##                                                        ##
 ############################################################
 
 - platform: template
   sensors:
-    meteo_france_orage:
-      friendly_name: Orages
-      value_template: "{{ state_attr('sensor.92_weather_alert', 'Orages') }}"
     meteo_france_inondation:
       friendly_name: Inondation
       value_template: "{{ state_attr('sensor.92_weather_alert', 'Inondation') }}"
-    meteo_france_vague:
-      friendly_name: Vagues-submersion
-      value_template: "{{ state_attr('sensor.92_weather_alert', 'Vagues-submersion') }}"
-    meteo_france_vent:
-      friendly_name: Vent violent
-      value_template: "{{ state_attr('sensor.92_weather_alert', 'Vent violent') }}"
-    meteo_france_neige:
+    meteo_france_grand_frois:
+      friendly_name: Grand-froid
+      value_template: "{{ state_attr('sensor.92_weather_alert', 'Grand-froid') }}"
+    meteo_france_neige_verglas:
       friendly_name: Neige-verglas
       value_template: "{{ state_attr('sensor.92_weather_alert', 'Neige-verglas') }}"
-    bourg_la_reine_humidity:
-      friendly_name: Humidité
-      value_template: "{{ state_attr('weather.bourg_la_reine', 'humidity') }}"
-      unit_of_measurement: "%"
+    meteo_france_orages:
+      friendly_name: Orages
+      value_template: "{{ state_attr('sensor.92_weather_alert', 'Orages') }}"
+    meteo_france_pluie_inondation:
+      friendly_name: Pluie-Inondation
+      value_template: "{{ state_attr('sensor.92_weather_alert', 'Pluie-inondation') }}"
+    meteo_france_vent_violent:
+      friendly_name: Vent violent
+      value_template: "{{ state_attr('sensor.92_weather_alert', 'Vent violent') }}"
+    # bourg_la_reine_temperature:
+    #   friendly_name: Température
+    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'temperature') }}"
+    #   unit_of_measurement: "°C"
+    # bourg_la_reine_humidity:
+    #   friendly_name: Humidité
+    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'humidity') }}"
+    #   unit_of_measurement: "%"
+    # bourg_la_reine_pressure:
+    #   friendly_name: Pression
+    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'pressure') }}"
+    #   unit_of_measurement: "HPa"
+    # bourg_la_reine_wind_bearing:
+    #   friendly_name: Direction du vent
+    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'wind_bearing') }}"
+    #   unit_of_measurement: "°"
+    # bourg_la_reine_wind_speed:
+    #   friendly_name: Vitesse du vent
+    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'wind_speed') }}"
+    #   unit_of_measurement: "Km/h"
 
     bourg_la_reine_temperature_maximale_pour_demain:
       friendly_name: Prévision température maximale

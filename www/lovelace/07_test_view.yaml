@@ -5,13 +5,12 @@ icon: mdi:ab-testing
 cards:
   - type: vertical-stack
     cards:
-  - type: custom:decluttering-card
-    template: button_hassos
-
-  - template: button_synology
-    type: "custom:decluttering-card"
-    variables:
-      - entity: "sensor.lama_cpu_load_total"
+    # - type: custom:decluttering-card
+    #     template: button_hassos
+    - type: custom:decluttering-card
+      template: button_synology
+      variables:
+      - entity: "sensor.lama_cpu_utilization_total"
       - icon: mdi:nas
       - name: Synology
       - colorstyle: "[[[
@@ -28,7 +27,7 @@ cards:
           ]]]"
       - cpufield: "[[[
           return `<ha-icon icon='mdi:server' style='width: 20px; height: 20px; color: deepskyblue;'></ha-icon>
-          <span>CPU: <span style='color: var(--text-color-sensor);'>${states['sensor.lama_cpu_load_total'].state}%</span></span>`
+          <span>CPU: <span style='color: var(--text-color-sensor);'>${states['sensor.lama_cpu_utilization_total'].state}%</span></span>`
           ]]]"
       - ramfield: "[[[
           return `<ha-icon icon='mdi:memory' style='width: 20px; height: 20px; color: deepskyblue;'></ha-icon>
@@ -39,8 +38,8 @@ cards:
           <span>HDD: <span style='color: var(--text-color-sensor);'>${states['sensor.lama_volume_used_volume_1'].state}%</span></span>`
           ]]]"
       - cpustyle: "[[[
-          if (states['sensor.lama_cpu_load_total'].state > 40) return 'orange';
-          if (states['sensor.lama_cpu_load_total'].state >= 60 && states['sensor.lama_cpu_load_total'].state < 80) return 'red';
+          if (states['sensor.lama_cpu_utilization_total'].state > 40) return 'orange';
+          if (states['sensor.lama_cpu_utilization_total'].state >= 60 && states['sensor.lama_cpu_utilization_total'].state < 80) return 'red';
           else return 'lime';
           ]]]"
       - ramstyle: "[[[
@@ -53,3 +52,16 @@ cards:
           if (states['sensor.lama_volume_used_volume_1'].state >= 60 && states['sensor.lama_volume_used_volume_1'].state < 80) return 'red';
           else return 'lime';
           ]]]"
+### template modifié
+    - type: custom:decluttering-card
+      template: button_synology_v2
+      variables:
+      - entity: "sensor.lama_cpu_utilization_total"
+      - name: LAMA
+      - tempfield: sensor.lama_temperature_sda
+      - cpufield: sensor.lama_cpu_utilization_total
+      - ramfield: sensor.lama_memory_usage_real
+      - sdfield: sensor.lama_volume_used_volume_1
+      - cpustyle: sensor.lama_cpu_utilization_total
+      - ramstyle: sensor.lama_memory_usage_real
+      - sdstyle: sensor.lama_volume_used_volume_1

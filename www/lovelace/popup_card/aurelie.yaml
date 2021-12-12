@@ -72,7 +72,7 @@ browser_mod:
                         color: {{ '#3182b7' if is_state('device_tracker.roman_gabriela_gps', 'home') else '#FFFFFF20' }};
                       }
             entities:
-              - entity: device_tracker.hostname1
+              - entity: device_tracker.hostname2
                 name: Router
                 icon: mdi:wifi
 
