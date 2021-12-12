@@ -19,29 +19,40 @@ utility_meter:
 sensor:
   - platform: template
     sensors: 
-      down_max_routeuryop:
-        friendly_name: "Max Down"        
-        unit_of_measurement: 'kB/s'
-        value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Received)') }}"
-        # value_template: "{{ state_attr('sensor.stats_routeuryop_download_speed', 'max_value') }}"
+    #   down_max_routeuryop:
+    #     friendly_name: "Max Down"        
+    #     unit_of_measurement: 'kB/s'
+    #     value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Received)') }}"
 
-      up_max_routeuryop:
-        friendly_name: "Max Up"        
-        unit_of_measurement: 'kB/s'
-        value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Sent)') }}"
-        # value_template: "{{ state_attr('sensor.stats_routeuryop_upload_speed', 'max_value') }}"
+    #   up_max_routeuryop:
+    #     friendly_name: "Max Up"        
+    #     unit_of_measurement: 'kB/s'
+    #     value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Sent)') }}"
 
-      mb_received:
-        friendly_name: "MB Received"        
-        unit_of_measurement: 'MB/s'
+      wan_b_received:
+        friendly_name: "WAN Bytes Received"        
+        unit_of_measurement: 'B'
         value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Received)') | round(2) }}"
-        # value_template: "{{ (states('sensor.download')|filesizeformat()) | round(2) }}"
 
-      mb_sent:
-        friendly_name: "MB Sent"        
-        unit_of_measurement: 'MB/s'
+      wan_b_sent:
+        friendly_name: "WAN Bytes Sent"        
+        unit_of_measurement: 'B'
         value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Sent)') | round(2) }}"
-        # value_template: "{{ (states('sensor.upload')|filesizeformat()) | round(2) }}"
+
+  - platform: derivative
+    source: sensor.wan_b_received
+    unit_time: s
+    unit: B
+    name: wan_in_derivative
+
+  - platform: template
+    sensors:
+      wan_in_mbps:
+        value_template:  "{{ ((states('sensor.wan_in_derivative')|float*8)/1000000)|round(2) }}"
+        unit_of_measurement: 'Mbps'
+        entity_id: sensor.wan_in_derivative
+        friendly_name: Wan in mbps (test)
+
 
 
   - platform: statistics
