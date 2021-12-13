@@ -5,20 +5,10 @@
   ##                                                        ##
   ############################################################    
 
-utility_meter:
-  download:
-    source: sensor.stats_routeuryop_download_speed
-    cycle: weekly
-  upload:
-    source: sensor.stats_routeuryop_upload_speed
-    cycle: weekly
 
-
-
-
-sensor:
-  - platform: template
-    sensors: 
+# sensor:
+#   - platform: template
+#     sensors: 
     #   down_max_routeuryop:
     #     friendly_name: "Max Down"        
     #     unit_of_measurement: 'kB/s'
@@ -29,36 +19,142 @@ sensor:
     #     unit_of_measurement: 'kB/s'
     #     value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Sent)') }}"
 
-      wan_b_received:
-        friendly_name: "WAN Bytes Received"        
-        unit_of_measurement: 'B'
-        value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Received)') | round(2) }}"
+      # wan_b_received:
+      #   friendly_name: "WAN Bytes Received"        
+      #   unit_of_measurement: 'B'
+      #   value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Received)') | round(2) }}"
 
-      wan_b_sent:
-        friendly_name: "WAN Bytes Sent"        
-        unit_of_measurement: 'B'
-        value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Sent)') | round(2) }}"
+      # wan_b_sent:
+      #   friendly_name: "WAN Bytes Sent"        
+      #   unit_of_measurement: 'B'
+      #   value_template: "{{ state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Sent)') | round(2) }}"
 
-  - platform: derivative
-    source: sensor.wan_b_received
-    unit_time: s
-    unit: B
-    name: wan_in_derivative
+  # - platform: derivative
+  #   source: sensor.wan_b_received
+  #   unit_time: s
+  #   unit: B
+  #   name: wan_in_derivative
 
+  # - platform: template
+  #   sensors:
+  #     wan_in_mbps:
+  #       value_template:  "{{ ((states('sensor.wan_in_derivative')|float*8)/1000000)|round(2) }}"
+  #       unit_of_measurement: 'Mbps'
+  #       entity_id: sensor.wan_in_derivative
+  #       friendly_name: Wan in mbps (test)
+
+
+
+  # - platform: statistics
+  #   name: Stats RouteurYop Download Speed
+  #   entity_id: sensor.routeuryop_download_speed
+  # - platform: statistics
+  #   name: Stats RouteurYop Upload Speed
+  #   entity_id: sensor.routeuryop_upload_speed
+
+
+
+
+
+# source: données edgerouter
+sensor:
   - platform: template
     sensors:
-      wan_in_mbps:
-        value_template:  "{{ ((states('sensor.wan_in_derivative')|float*8)/1000000)|round(2) }}"
-        unit_of_measurement: 'Mbps'
-        entity_id: sensor.wan_in_derivative
-        friendly_name: Wan in mbps (test)
+      routeuryop_wan_in:
+        friendly_name: 'RouteurYop WAN In'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes (Received)')|float*8) )/1000000)|round(2) }}"
+        unit_of_measurement: 'MB'
+      routeuryop_wan_out:
+        friendly_name: 'RouteurYop WAN Out'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1','Bytes (Sent)')|float*8) )/1000000)|round(2)}}"
+        unit_of_measurement: 'MB'
+      routeuryop_download_speed:
+        friendly_name: 'RouteurYop download speed'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1', 'Bytes/ps (Received)')|float*8) )/1000000)|round(2) }}"
+        unit_of_measurement: 'MBps'
+      routeuryop_upload_speed:
+        friendly_name: 'RouteurYop upload speed'
+        value_template: "{{ (((state_attr('binary_sensor.routeuryop_interface_eth1','Bytes/ps (Sent)')|float*8) )/1000000)|round(2)}}"
+        unit_of_measurement: 'MBps'
 
-
-
+  # - platform: statistics
+  #   name: 'RouteurYop WAN in Stats'
+  #   entity_id: sensor.routeuryop_wan_in
+  #   sampling_size: 4
+  #   max_age:
+  #     hours: 24
+  # - platform: statistics
+  #   name: 'RouteurYop WAN out Stats'
+  #   entity_id: sensor.routeuryop_wan_out
+  #   sampling_size: 4
+  #   max_age:
+  #     hours: 24
+  # - platform: template
+  #   sensors:
+  #     routeuryop_wan_in_mbps:
+  #       value_template: "{{ (state_attr('sensor.routeuryop_wan_in_stats','change_rate')|float*8*(state_attr('sensor.routeuryop_wan_in_stats', 'sampling_size')-1)/1000000)|round(2) }}"
+  #       unit_of_measurement: 'MBps'
+  #       entity_id: sensor.routeuryop_wan_in_stats
+  #     routeuryop_wan_out_mbps:
+  #       value_template: "{{ (state_attr('sensor.routeuryop_wan_out_stats','change_rate')|float*8*(state_attr('sensor.routeuryop_wan_out_stats', 'sampling_size')-1)/1000000)|round(2) }}"
+  #       unit_of_measurement: 'MBps'
+  #       entity_id: sensor.routeuryop_wan_out_stats
   - platform: statistics
-    name: Stats RouteurYop Download Speed
-    entity_id: sensor.routeuryop_download_speed
+    name: "RouteurYop WAN In MBps"
+    entity_id: sensor.routeuryop_wan_in
+    state_characteristic: change_second
+    sampling_size: 4
+    max_age:
+      hours: 24
   - platform: statistics
-    name: Stats RouteurYop Upload Speed
-    entity_id: sensor.routeuryop_upload_speed
+    name: "RouteurYop WAN Out Mbps"
+    entity_id: sensor.routeuryop_wan_out
+    state_characteristic: change_second
+    sampling_size: 4
+    max_age:
+      hours: 24
 
+utility_meter:
+  internet_download_speed:
+    source: sensor.routeuryop_download_speed
+    cycle: weekly
+  internet_upload_speed:
+    source: sensor.routeuryop_upload_speed
+    cycle: weekly
+  internet_mb_downloaded:
+    source: sensor.routeuryop_wan_in
+    cycle: yearly
+  internet_mb_uploaded:
+    source: sensor.routeuryop_wan_out
+    cycle: yearly
+  internet_mb_downloaded_mois:
+    source: sensor.routeuryop_wan_in
+    cycle: monthly
+  internet_mb_uploaded_mois:
+    source: sensor.routeuryop_wan_out
+    cycle: monthly
+  internet_mb_downloaded_jour:
+    source: sensor.routeuryop_wan_in
+    cycle: daily
+  internet_mb_uploaded_jour:
+    source: sensor.routeuryop_wan_out
+    cycle: daily
+  internet_mb_downloaded_heure:
+    source: sensor.routeuryop_wan_in
+    cycle: hourly
+  internet_mb_uploaded_heure:
+    source: sensor.routeuryop_wan_out
+    cycle: hourly
+# compteur resetable
+  compteur_internet_download_speed:
+    source: sensor.routeuryop_download_speed
+    cycle: yearly
+  compteur_internet_upload_speed:
+    source: sensor.routeuryop_upload_speed
+    cycle: yearly
+  compteur_internet_mb_downloaded:
+    source: sensor.routeuryop_wan_in
+    cycle: yearly
+  compteur_internet_mb_uploaded:
+    source: sensor.routeuryop_wan_out
+    cycle: yearly

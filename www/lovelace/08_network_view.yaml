@@ -21,3 +21,76 @@ cards:
           - device_tracker.routeuryop_iphonedeaurelie
         title: RouteurYop (ERLite-3)
 
+
+
+
+      - type: custom:decluttering-card
+        template: graph_network
+        variables:
+          - name: 'ERL WAN in MBps'
+          - entity: sensor.erl_wan_in_mbps
+      - type: custom:decluttering-card
+        template: graph_network
+        variables:
+          - name: 'ERL WAN out MBps'
+          - entity: sensor.erl_wan_out_mbps
+
+      # - type: horizontal-stack
+      #   cards:
+      #     - type: "custom:mini-graph-card"
+      #       entities: 
+      #         - sensor.erl_wan_in_mbps
+      #       color_thresholds:
+      #         - color: "#e45e65"
+      #           value: 10
+      #         - color: "#e0b400"
+      #           value: 5
+      #         - color: "#0da035"
+      #           value: -1
+      #       color_thresholds_transition: hard
+      #       group: false
+      #       hour24: true
+      #       line_width: 6
+      #       hours_to_show: 24 #ajout 24h
+      #       points_per_hour: 1
+      #       show:
+      #         extrema: true
+      #         fill: fade
+      #         icon: true
+      #         labels: false
+      #         name: true
+      #         state: true
+      #       style: |
+      #         ha-card {
+      #           border: solid 2px var(--primary-color);
+      #         }
+      #               - type: horizontal-stack
+      #   cards:
+      #     - type: "custom:mini-graph-card"
+      #       entities: 
+      #         - sensor.erl_wan_out_mbps
+      #       color_thresholds:
+      #         - color: "#e45e65"
+      #           value: 10
+      #         - color: "#e0b400"
+      #           value: 5
+      #         - color: "#0da035"
+      #           value: -1
+      #       color_thresholds_transition: hard
+      #       group: false
+      #       hour24: true
+      #       line_width: 6
+      #       hours_to_show: 24 #ajout 24h
+      #       points_per_hour: 1
+      #       show:
+      #         extrema: true
+      #         fill: fade
+      #         icon: true
+      #         labels: false
+      #         name: true
+      #         state: true
+      #       style: |
+      #         ha-card {
+      #           border: solid 2px var(--primary-color);
+      #         }
+

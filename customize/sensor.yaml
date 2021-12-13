@@ -9,7 +9,7 @@ sensor.summary:
   friendly_name: Summary
 
   ###  SYSTEME  ###
-sensor.derniere_version:
+sensor.newest_version:
   icon: mdi:update
 sensor.version:
   friendly_name: Version installée

@@ -69,6 +69,23 @@ sensor:
         value_template: "{{ state_attr('switch.tp_link_plug_4','voltage') | float }}"
         unit_of_measurement: "V"
 
+#option si pas suppressions erreurs dans template
+  - platform: filter
+    name: "prise 02 total energy kwh filtered"
+    entity_id: sensor.prise_02_total_energy_kwh
+    filters:
+    - filter: range
+      lower_bound: 0
+      upper_bound: 200000000000000
+  - platform: filter
+    name: "prise 03 total energy kwh filtered"
+    entity_id: sensor.prise_03_total_energy_kwh
+    filters:
+    - filter: range
+      lower_bound: 0
+      upper_bound: 200000000000000
+
+
   #Templates pour cumuler les valeurs des prises
   - platform: template
     sensors:

@@ -26,12 +26,12 @@ camera:
 #       style: |
 #         ha-card {
 #           background: none;
-#           box-shadow: none;      
+#           box-shadow: none;
 #           font-family: Quicksand;
-#           margin-bottom: -0.9em;            
+#           margin-bottom: -0.9em;
 #         }
 #     content: >
-#       <center> {{ states('sensor.date_fr') }}, nous fêtons les {{ states('sensor.fete_du_jour') }} <center>             
+#       <center> {{ states('sensor.date_fr') }}, nous fêtons les {{ states('sensor.fete_du_jour') }} <center>
 #       <center> &nbsp;
 #       <center> {{states.sensor.summary.attributes.text}}
 
@@ -2118,7 +2118,6 @@ button_synology:
           card:
             - "[[opacity1]]": "[[opacity2]]"
 
-
 ####################################################################################################################################################################################################################################################################################################################################################
 ####    SYNOLOGY V2
 ####################################################################################################################################################################################################################################################################################################################################################
@@ -2177,10 +2176,10 @@ button_synology_v2:
           - --text-color-sensor: "[[sdstyle]]"
     custom_fields:
       temp: >
-          "[[[
-          return `<ha-icon icon='mdi:thermometer' style='width: 20px; height: 20px; color: yellow;'></ha-icon>
-          <span style='align: left;'>${Math.round(states[[[tempfield]]].state)}°C</span>`
-          ]]]"
+        "[[[
+        return `<ha-icon icon='mdi:thermometer' style='width: 20px; height: 20px; color: yellow;'></ha-icon>
+        <span style='align: left;'>${Math.round(states[[[tempfield]]].state)}°C</span>`
+        ]]]"
       cpu: >
         [[cpufield]]
       ram: >
@@ -2207,7 +2206,6 @@ button_synology_v2:
       #     if (entity.state == 'OL LB') return 'cyan';
       #     else return 'deepskyblue';
       #     ]]]"
-
 
 ####################################################################################################################################################################################################################################################################################################################################################
 ####    HASSOS
@@ -2292,7 +2290,7 @@ button_hassos:
           return `<ha-icon
             icon='mdi:home-assistant'
             style='width: 15px; height: 15px; color: deepskyblue;'>
-            </ha-icon><span>Actuelle: <span style='color: var(--text-color-sensor);animation: var(--animation)'>${states['sensor.derniere_version'].state}</span></span>`
+            </ha-icon><span>Actuelle: <span style='color: var(--text-color-sensor);animation: var(--animation)'>${states['sensor.newest_version'].state}</span></span>`
         ]]]
       local: >
         [[[
@@ -2402,3 +2400,43 @@ button_tplink:
           state:
             - color: "[[coloroff]]"
         id: off-icon
+
+####################################################################################################################################################################################################################################################################################################################################################
+####    Graph Network
+####################################################################################################################################################################################################################################################################################################################################################
+graph_network:
+  card:
+    type: "custom:mini-graph-card"
+    entities: 
+      - "[[entity]]"
+    name: "[[name]]"
+    color_thresholds:
+      - color: "#e45e65"
+        value: 10
+      - color: "#e0b400"
+        value: 5
+      - color: "#0da035"
+        value: -1
+    color_thresholds_transition: hard
+    group: false
+    hour24: true
+    line_width: 6
+    hours_to_show: 1 #ajout
+    points_per_hour: 1
+    show:
+      extrema: true
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+    # card_mod:
+    #   style: |
+    #     ha-card {
+    #       background: none;
+    #       box-shadow: none;    
+    #     }
