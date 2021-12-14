@@ -28,10 +28,11 @@
     #   friendly_name: Température
     #   value_template: "{{ state_attr('weather.bourg_la_reine', 'temperature') }}"
     #   unit_of_measurement: "°C"
-    # bourg_la_reine_humidity:
-    #   friendly_name: Humidité
-    #   value_template: "{{ state_attr('weather.bourg_la_reine', 'humidity') }}"
-    #   unit_of_measurement: "%"
+    # Humidity not incuded in standard sensors????
+    bourg_la_reine_humidity:
+      friendly_name: Humidité
+      value_template: "{{ state_attr('weather.bourg_la_reine', 'humidity') }}"
+      unit_of_measurement: "%"
     # bourg_la_reine_pressure:
     #   friendly_name: Pression
     #   value_template: "{{ state_attr('weather.bourg_la_reine', 'pressure') }}"

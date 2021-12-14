@@ -115,57 +115,81 @@ cards:
                 border: solid 2px var(--primary-color);
               }
             type: 'custom:mini-graph-card'
-      # - type: horizontal-stack
-      #   cards:
-      #     - color_thresholds:
-      #         - color: '#e45e65'
-      #           value: 10
-      #         - color: '#e0b400'
-      #           value: 5
-      #         - color: '#0da035'
-      #           value: -1
-      #       color_thresholds_transition: hard
-      #       entities:
-      #         - sensor.erl_wan_in
-      #       group: false
-      #       hour24: true
-      #       line_width: 6
-      #       points_per_hour: 1
-      #       show:
-      #         extrema: true
-      #         fill: fade
-      #         icon: true
-      #         labels: false
-      #         name: true
-      #         state: true
-      #       style: |
-      #         ha-card {
-      #           border: solid 2px var(--primary-color);
-      #         }
-      #       type: 'custom:mini-graph-card'
-      #     - color_thresholds:
-      #         - color: '#e45e65'
-      #           value: 2
-      #         - color: '#e0b400'
-      #           value: 1
-      #         - color: '#0da035'
-      #           value: -1
-      #       color_thresholds_transition: hard
-      #       entities:
-      #         - sensor.erl_wan_out
-      #       group: false
-      #       hour24: true
-      #       line_width: 6
-      #       points_per_hour: 1
-      #       show:
-      #         extrema: true
-      #         fill: fade
-      #         icon: true
-      #         labels: false
-      #         name: true
-      #         state: true
-      #       style: |
-      #         ha-card {
-      #           border: solid 2px var(--primary-color);
-      #         }
-      #       type: 'custom:mini-graph-card'
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            name: Reseau
+            entities: 
+              - entity: sensor.routeuryop_wan_in_mbps
+                name: DL
+                show_state: true
+                unit: 'Mbps'
+              - entity: sensor.routeuryop_wan_out_mbps
+                name: UL
+                show_state: true
+                unit: 'Mbps'
+            icon: mdi:network
+            height: 40
+            line_color: '#3498db'
+            line_width: 2
+            font_size: 70
+            hours_to_show: 72
+            points_per_hour: 1
+            show:
+              extrema: true
+              fill: true
+
+      - type: horizontal-stack
+        cards:
+          - color_thresholds:
+              - color: '#e45e65'
+                value: 10
+              - color: '#e0b400'
+                value: 5
+              - color: '#0da035'
+                value: -1
+            color_thresholds_transition: hard
+            entities:
+              - sensor.erl_wan_in
+            group: false
+            hour24: true
+            line_width: 6
+            points_per_hour: 1
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#e45e65'
+                value: 2
+              - color: '#e0b400'
+                value: 1
+              - color: '#0da035'
+                value: -1
+            color_thresholds_transition: hard
+            entities:
+              - sensor.erl_wan_out
+            group: false
+            hour24: true
+            line_width: 6
+            points_per_hour: 1
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            type: 'custom:mini-graph-card'

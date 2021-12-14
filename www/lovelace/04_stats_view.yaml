@@ -351,24 +351,24 @@ cards:
             group_by:
               func: avg
               duration: 30min
-          - entity: sensor.netatmo_chambre_humidity
-            color: "var(--tplink-2-color)"
-            name: Chambre
-            curve: smooth
-            show:
-              extremas: true
-            group_by:
-              func: avg
-              duration: 30min
-          - entity: sensor.multisensor_6_humidity
-            color: "var(--tplink-3-color)"
-            name: Entrée
-            curve: smooth
-            show:
-              extremas: true
-            group_by:
-              func: avg
-              duration: 30min
+          # - entity: sensor.netatmo_chambre_humidity
+          #   color: "var(--tplink-2-color)"
+          #   name: Chambre
+          #   curve: smooth
+          #   show:
+          #     extremas: true
+          #   group_by:
+          #     func: avg
+          #     duration: 30min
+          # - entity: sensor.multisensor_6_humidity
+          #   color: "var(--tplink-3-color)"
+          #   name: Entrée
+          #   curve: smooth
+          #   show:
+          #     extremas: true
+          #   group_by:
+          #     func: avg
+          #     duration: 30min
         apex_config:
           chart:
             height: 250

@@ -11,7 +11,7 @@
   value_template: '{{ value_json.info.version }}'
   scan_interval: 3600
   
-- platform: rest
-  resource: !secret fetedujour
-  name: Fete du jour
-  value_template: "{{ value_json['data']['namedays']['fr'] }}"
+# - platform: rest
+#   resource: !secret fetedujour
+#   name: Fete du jour
+#   value_template: "{{ value_json['data']['namedays']['fr'] }}"

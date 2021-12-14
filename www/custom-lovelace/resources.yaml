@@ -74,9 +74,8 @@
   type: js
 - url: /hacsfiles/weather-card/weather-card.js
   type: module
-### EDGEOS  ###
-# - url: /edgeos/?
-# type: module
+- url: /local/community/lovelace-meteofrance-weather-card/meteofrance-weather-card.js
+  type: module
 ### BROWSER ###
 - url: /browser_mod.js
   type: module

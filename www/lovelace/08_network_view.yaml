@@ -25,15 +25,17 @@ cards:
 
 
       - type: custom:decluttering-card
-        template: graph_network
+        template: graph_network_1h
         variables:
           - name: 'ERL WAN in MBps'
           - entity: sensor.erl_wan_in_mbps
+          - icon: mdi:download-network
       - type: custom:decluttering-card
-        template: graph_network
+        template: graph_network_1h
         variables:
           - name: 'ERL WAN out MBps'
           - entity: sensor.erl_wan_out_mbps
+          - icon: mdi:upload-network
 
       # - type: horizontal-stack
       #   cards:
