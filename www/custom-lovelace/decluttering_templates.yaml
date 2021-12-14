@@ -2410,6 +2410,47 @@ graph_network:
     entities: 
       - "[[entity]]"
     name: "[[name]]"
+    icon: "[[icon]]"
+    color_thresholds:
+      - color: "#e45e65"
+        value: 10
+      - color: "#e0b400"
+        value: 5
+      - color: "#0da035"
+        value: -1
+    color_thresholds_transition: hard
+    group: false
+    hour24: true
+    line_width: 6
+    hours_to_show: 24 #ajout
+    points_per_hour: 1
+    show:
+      extrema: true
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+    # card_mod:
+    #   style: |
+    #     ha-card {
+    #       background: none;
+    #       box-shadow: none;    
+    #     }
+####################################################################################################################################################################################################################################################################################################################################################
+####    Graph Network 1 heure
+####################################################################################################################################################################################################################################################################################################################################################
+graph_network_1h:
+  card:
+    type: "custom:mini-graph-card"
+    entities: 
+      - "[[entity]]"
+    name: "[[name]]"
+    icon: "[[icon]]"
     color_thresholds:
       - color: "#e45e65"
         value: 10
@@ -2440,3 +2481,115 @@ graph_network:
     #       background: none;
     #       box-shadow: none;    
     #     }
+
+
+####################################################################################################################################################################################################################################################################################################################################################
+####    Template complexe 
+####    https://community.home-assistant.io/t/fun-with-cutom-button-card/238450
+####################################################################################################################################################################################################################################################################################################################################################
+button_card_templates_orig:
+  presets:
+    template: standard
+    color_type: icon
+    tap_action:
+      action: none
+    styles:
+      card:
+        - background-color: 'rgba(0,0,0,0.3)'
+      icon:
+        - color: white
+      grid:
+        - grid-template-areas: '"i opt1 opt2 opt3 opt4" "n opt1 opt2 opt3 opt4"'
+        - grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+      custom_fields:
+        opt1:
+          - margin: 0.1em
+          - overflow: visible
+        opt2:
+          - margin: 0.1em
+          - overflow: visible
+        opt3:
+          - margin: 0.1em
+          - overflow: visible
+        opt4:
+          - margin: 0.1em
+          - overflow: visible
+    variables:
+      option_template: dimmer-option
+      option_button_on_color: var(--paper-item-icon-active-color)
+      option_text_on_color: white
+      option_button_off_color: var(--paper-card-background-color)
+      option_text_off_color: white
+      option1_name: Low
+      option1_set_value: 51
+      option1_range_start: 1
+      option1_range_stop: 77
+      option2_name: Med
+      option2_set_value: 102
+      option2_range_start: 78
+      option2_range_stop: 170
+      option3_name: High
+      option3_set_value: 255
+      option3_range_start: 171
+      option3_range_stop: 255
+      option4_name: 'Off'
+      option4_set_value: 0
+      option4_range_start: 0
+      option4_range_stop: 0
+    custom_fields:
+      opt1:
+        card:
+          type: 'custom:button-card'
+          entity: '[[[ return variables.entity ]]]'
+          template: '[[[ return variables.option_template ]]]'
+          name: '[[[ return variables.option1_name ]]]'
+          variables:
+            set_value: '[[[ return variables.option1_set_value ]]]'
+            range_start: '[[[ return variables.option1_range_start ]]]'
+            range_stop: '[[[ return variables.option1_range_stop ]]]'
+            option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
+            option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
+            option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
+            option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
+      opt2:
+        card:
+          type: 'custom:button-card'
+          entity: '[[[ return variables.entity ]]]'
+          template: '[[[ return variables.option_template ]]]'
+          name: '[[[ return variables.option2_name ]]]'
+          variables:
+            set_value: '[[[ return variables.option2_set_value ]]]'
+            range_start: '[[[ return variables.option2_range_start ]]]'
+            range_stop: '[[[ return variables.option2_range_stop ]]]'
+            option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
+            option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
+            option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
+            option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
+      opt3:
+        card:
+          type: 'custom:button-card'
+          entity: '[[[ return variables.entity ]]]'
+          template: '[[[ return variables.option_template ]]]'
+          name: '[[[ return variables.option3_name ]]]'
+          variables:
+            set_value: '[[[ return variables.option3_set_value ]]]'
+            range_start: '[[[ return variables.option3_range_start ]]]'
+            range_stop: '[[[ return variables.option3_range_stop ]]]'
+            option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
+            option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
+            option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
+            option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
+      opt4:
+        card:
+          type: 'custom:button-card'
+          entity: '[[[ return variables.entity ]]]'
+          template: '[[[ return variables.option_template ]]]'
+          name: '[[[ return variables.option4_name ]]]'
+          variables:
+            set_value: '[[[ return variables.option4_set_value ]]]'
+            range_start: '[[[ return variables.option4_range_start ]]]'
+            range_stop: '[[[ return variables.option4_range_stop ]]]'
+            option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
+            option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
+            option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
+            option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
